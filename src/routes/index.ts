@@ -1,9 +1,7 @@
 import { Router } from 'express';
+import instructorsRoutes from './instructorsRoutes';
 
 const routes = Router();
 
-routes.get('/', (request, response) =>
-  response.json({ message: 'Welcome to the gymManger' })
-);
-
+routes.use('/instructors', instructorsRoutes);
 export default routes;
