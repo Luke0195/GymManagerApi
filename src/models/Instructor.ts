@@ -20,7 +20,7 @@ class Instructor {
   @Column()
   gender: string;
 
-  @Column()
+  @Column('date')
   birth: Date;
 
   @Column()

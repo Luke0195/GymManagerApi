@@ -1,8 +1,9 @@
-import { Router } from 'express';
+import e, { Router } from 'express';
 import { getRepository } from 'typeorm';
 import Instructor from '../models/Instructor';
 import CreateInstructorService from '../services/CreateInstructorService';
 import FindInstructorService from '../services/FindInstructorService';
+import UpdateInstructorService from '../services/UpdateInstructorService';
 
 const instructorsRoutes = Router();
 
@@ -41,4 +42,23 @@ instructorsRoutes.post('/', async (request, response) => {
   }
 });
 
+instructorsRoutes.put('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+    const { name, email, gender, services, birth } = request.body;
+    const updateInstructorService = new UpdateInstructorService();
+    const instructor = await updateInstructorService.execute({
+      id,
+      name,
+      email,
+      gender,
+      services,
+      birth,
+    });
+
+    return response.json(instructor);
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
+});
 export default instructorsRoutes;
