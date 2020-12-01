@@ -2,16 +2,24 @@ import { Router } from 'express';
 import { getRepository } from 'typeorm';
 import Instructor from '../models/Instructor';
 import CreateInstructorService from '../services/CreateInstructorService';
+import FindInstructorService from '../services/FindInstructorService';
 
 const instructorsRoutes = Router();
 
 instructorsRoutes.get('/', async (request, response) => {
+  const instructorRepository = getRepository(Instructor);
+  const instructors = await instructorRepository.find();
+  response.json(instructors);
+});
+
+instructorsRoutes.get('/:id', async (request, response) => {
   try {
-    const instructorRepository = getRepository(Instructor);
-    const instructors = await instructorRepository.find();
-    response.json(instructors);
+    const { id } = request.params;
+    const findInstructorService = new FindInstructorService();
+    const instructor = await findInstructorService.execute({ id });
+    response.json(instructor);
   } catch (error) {
-    response.json(error.message);
+    response.status(400).json({ error: error.message });
   }
 });
 
