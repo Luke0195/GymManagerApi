@@ -47,12 +47,6 @@ export default class CreateInstructors1606775070814
           },
 
           {
-            name: 'avatar_url',
-            type: 'varchar',
-            isNullable: false,
-          },
-
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
