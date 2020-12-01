@@ -4,6 +4,7 @@ import Instructor from '../models/Instructor';
 import CreateInstructorService from '../services/CreateInstructorService';
 import FindInstructorService from '../services/FindInstructorService';
 import UpdateInstructorService from '../services/UpdateInstructorService';
+import DeleteInstructorService from '../services/DeleteInstructorService';
 
 const instructorsRoutes = Router();
 
@@ -59,6 +60,17 @@ instructorsRoutes.put('/:id', async (request, response) => {
     return response.json(instructor);
   } catch (error) {
     return response.status(400).json({ error: error.message });
+  }
+});
+
+instructorsRoutes.delete('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+    const deleteInstructorService = new DeleteInstructorService();
+    const instructor = await deleteInstructorService.execute({ id });
+    response.status(200).json({ message: 'This is instructor was deleted' });
+  } catch (error) {
+    response.status(400).json({ error: error.message });
   }
 });
 export default instructorsRoutes;
