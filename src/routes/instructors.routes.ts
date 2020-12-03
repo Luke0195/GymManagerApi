@@ -1,12 +1,14 @@
-import e, { Router } from 'express';
+import { Router } from 'express';
 import { getRepository } from 'typeorm';
 import Instructor from '../models/Instructor';
 import CreateInstructorService from '../services/CreateInstructorService';
 import FindInstructorService from '../services/FindInstructorService';
 import UpdateInstructorService from '../services/UpdateInstructorService';
 import DeleteInstructorService from '../services/DeleteInstructorService';
+import verifyAuthentication from '../middlewares/verifyAuthentication';
 
 const instructorsRoutes = Router();
+instructorsRoutes.use(verifyAuthentication);
 
 instructorsRoutes.get('/', async (request, response) => {
   const instructorRepository = getRepository(Instructor);
