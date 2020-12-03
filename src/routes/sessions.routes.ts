@@ -8,14 +8,12 @@ sessionsRoutes.post('/', async (request, response) => {
     const { email, password } = request.body;
 
     const authenticateSessionService = new AuthenticateSessionService();
-    const user = await authenticateSessionService.execute({
+    const { user, token } = await authenticateSessionService.execute({
       email,
       password,
     });
 
-    delete user.password;
-
-    response.json(user);
+    response.json({ user, token });
   } catch (error) {
     response.status(401).json({ message: error.message });
   }
