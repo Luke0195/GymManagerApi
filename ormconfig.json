@@ -5,6 +5,7 @@
   "username": "postgres",
   "password": "docker",
   "database": "gymmanager",
+  "synchronize": true,
   "entities":[
     "./src/models/*.ts"
   ],

@@ -1,6 +1,5 @@
 import { getRepository } from 'typeorm';
 import Instructor from '../models/Instructor';
-import InstructorRepository from '../repository/InstructorRepository';
 
 interface Request {
   id: string;

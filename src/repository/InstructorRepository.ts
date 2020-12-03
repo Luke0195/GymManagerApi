@@ -9,8 +9,6 @@ interface InstructorDTO {
   birth: Date;
 }
 @EntityRepository(Instructor)
-class InstructorRepository extends Repository<Instructor> {
-  public async update(data: InstructorDTO);
-}
+class InstructorRepository extends Repository<Instructor> {}
 
 export default InstructorRepository;
