@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import Member from '../models/Member';
 import uploadConfig from '../config/upload';
+import AppError from '../errors/AppError';
 
 interface Request {
   member_id: string;
@@ -15,7 +16,7 @@ class ChangeAvatarMemberService {
     const member = await memberRepository.findOne(member_id);
 
     if (!member) {
-      throw new Error('Esse member não existe');
+      throw new AppError('Esse member não existe', 400);
     }
 
     if (member.avatar_url) {

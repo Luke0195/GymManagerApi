@@ -84,19 +84,15 @@ instructorsRoutes.patch(
   '/',
   upload.single('avatar'),
   async (request, response) => {
-    try {
-      const { instructor_id } = request.body;
+    const { instructor_id } = request.body;
 
-      const changeAvatarInstructorService = new ChangeAvatarInstructorService();
-      const instructor = await changeAvatarInstructorService.execute({
-        instructor_id,
-        avatarFilename: request.file.filename,
-      });
+    const changeAvatarInstructorService = new ChangeAvatarInstructorService();
+    const instructor = await changeAvatarInstructorService.execute({
+      instructor_id,
+      avatarFilename: request.file.filename,
+    });
 
-      response.json(instructor);
-    } catch (error) {
-      response.status(401).json({ message: error.message });
-    }
+    response.json(instructor);
   }
 );
 

@@ -1,6 +1,6 @@
-import { response } from 'express';
 import { getRepository } from 'typeorm';
 import Instructor from '../models/Instructor';
+import AppError from '../errors/AppError';
 
 interface Request {
   id: string;
@@ -12,7 +12,7 @@ class FindInstructorService {
     const findInstructor = await instructorRepository.findOne(id);
 
     if (!findInstructor) {
-      throw new Error('This instructor does not exists');
+      throw new AppError('This instructor does not exists', 400);
     }
 
     return findInstructor || null;

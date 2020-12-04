@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm';
 import path from 'path';
 import fs from 'fs';
+import AppError from '../errors/AppError';
 import uploadConfig from '../config/upload';
 import Instructor from '../models/Instructor';
 
@@ -18,7 +19,7 @@ class ChangeAvatarInstructorService {
     const instructor = await instructorRepository.findOne(instructor_id);
 
     if (!instructor) {
-      throw new Error('Não existe instructor com esse id');
+      throw new AppError('Não existe instructor com esse id', 400);
     }
 
     if (instructor.avatar_url) {

@@ -1,5 +1,6 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
+import AppError from './errors/AppError';
 import routes from './routes/index';
 import uploadConfig from './config/upload';
 import './database';
@@ -9,6 +10,22 @@ const app = express();
 app.use(express.json());
 app.use('/files', express.static(uploadConfig.directory));
 app.use(routes);
+// o middlewares de global handle tem que vim depois as rotas
+app.use(
+  (error: Error, request: Request, response: Response, next: NextFunction) => {
+    if (error instanceof AppError) {
+      return response.status(error.statusCode).json({
+        status: 'error',
+        message: error.message,
+      });
+    }
+
+    return response.status(500).json({
+      status: 'error',
+      message: 'Internal server error',
+    });
+  }
+);
 
 app.listen(3334, () => {
   console.log('Server is runing');

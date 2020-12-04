@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import Instructor from '../models/Instructor';
+import AppError from '../errors/AppError';
 
 interface Request {
   name: string;

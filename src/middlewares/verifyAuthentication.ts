@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
-import { UpdateQueryBuilder } from 'typeorm';
+import AppError from '../errors/AppError';
 import authConfig from '../config/authConfig';
 
 interface TokenPayLoad {
@@ -16,7 +16,7 @@ export default function verifyAuthentication(
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new Error('JWT is missing');
+    throw new AppError('JWT is missinI', 401);
   }
   try {
     const [, token] = authHeader.split(' ');
@@ -32,6 +32,6 @@ export default function verifyAuthentication(
 
     return next();
   } catch {
-    throw new Error('Invalid JWT Token');
+    throw new AppError('Invalid JWT Token', 401);
   }
 }

@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import Instructor from '../models/Instructor';
+import AppError from '../errors/AppError';
 
 interface Request {
   id: string;
@@ -23,7 +24,7 @@ class UpdateInstructorService {
     const instructor = await instructorRepository.findOne(id);
 
     if (!instructor) {
-      throw new Error('This instructor does not exists');
+      throw new AppError('This instructor does not exists', 400);
     }
 
     const instructorUpdated = instructorRepository.create({

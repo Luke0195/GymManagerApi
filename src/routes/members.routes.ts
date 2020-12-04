@@ -49,17 +49,13 @@ membersRoutes.patch(
   verifyAuthentication,
   uploads.single('avatar'),
   async (request, response) => {
-    try {
-      const { member_id } = request.body;
-      const changeAvatarMemberService = new ChangeAvatarMemberService();
-      const member = await changeAvatarMemberService.execute({
-        member_id,
-        avatar_url: request.file.filename,
-      });
-      response.json(member);
-    } catch (error) {
-      response.status(400).json({ message: error.message });
-    }
+    const { member_id } = request.body;
+    const changeAvatarMemberService = new ChangeAvatarMemberService();
+    const member = await changeAvatarMemberService.execute({
+      member_id,
+      avatar_url: request.file.filename,
+    });
+    response.json(member);
   }
 );
 
