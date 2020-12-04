@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import 'express-async-errors';
 import dotenv from 'dotenv';
 import AppError from './errors/AppError';
 import routes from './routes/index';
@@ -12,7 +13,7 @@ app.use('/files', express.static(uploadConfig.directory));
 app.use(routes);
 // o middlewares de global handle tem que vim depois as rotas
 app.use(
-  (error: Error, request: Request, response: Response, next: NextFunction) => {
+  (error: Error, request: Request, response: Response, _: NextFunction) => {
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({
         status: 'error',
