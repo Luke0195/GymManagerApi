@@ -35,6 +35,9 @@ class Member {
   @Column('decimal')
   height: number;
 
+  @Column()
+  avatar_url: string;
+
   @CreateDateColumn()
   created_at: Date;
 

@@ -18,6 +18,9 @@ class Instructor {
   email: string;
 
   @Column()
+  avatar_url: string;
+
+  @Column()
   gender: string;
 
   @Column('date')

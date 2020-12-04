@@ -10,4 +10,5 @@ routes.use('/instructors', instructorsRoutes);
 routes.use('/members', membersRoutes);
 routes.use('/users', userRoutes);
 routes.use('/sessions', sessionsRoutes);
+
 export default routes;
