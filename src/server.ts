@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 import 'express-async-errors';
 import dotenv from 'dotenv';
 import AppError from './errors/AppError';
